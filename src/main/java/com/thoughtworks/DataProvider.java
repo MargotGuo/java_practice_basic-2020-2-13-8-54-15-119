@@ -16,4 +16,14 @@ public class DataProvider {
   public static List<String> getHalfDishIds() {
     return Arrays.asList("ITEM0001", "ITEM0022");
   }
+
+  public static Dish getDishById(String id) {
+    Dish output = null;
+    for(Dish dish : getDishes()) {
+      if (dish.getId().equals(id)) {
+        output = dish;
+      }
+    }
+    return output;
+  }
 }
