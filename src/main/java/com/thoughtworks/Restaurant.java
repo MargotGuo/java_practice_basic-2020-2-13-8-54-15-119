@@ -11,23 +11,24 @@ import java.util.List;
 public class Restaurant {
 
   public String bestCharge(String selectedItems) {
-    List<OrderDetail> orderList = getOrderList(selectedItems);
+    List<Dish> orderList = getOrderList(selectedItems);
     Promotion finalPromotion = getFinalPromotion(orderList);
+    System.out.println(finalPromotion.getClass().getSimpleName());
     return Printer.printInfo(finalPromotion);
   }
 
-  private List<OrderDetail> getOrderList(String selectedItems) {
-    List<OrderDetail> orderList = new ArrayList<>();
+  private List<Dish> getOrderList(String selectedItems) {
+    List<Dish> orderList = new ArrayList<>();
     String[] selectedArray = selectedItems.split(",");
-    for (String orderInfo : selectedArray) {
-      String dishId = orderInfo.split(" x ")[0];
-      int count = Integer.parseInt(orderInfo.split(" x ")[1]);
-      orderList.add(new OrderDetail(DataProvider.getDishById(dishId), count));
+    for (String itemInfo : selectedArray) {
+      Dish tempDish = DataProvider.getDishById(itemInfo.split(" x ")[0]);
+      tempDish.setCount(Integer.parseInt(itemInfo.split(" x ")[1]));
+      orderList.add(tempDish);
     }
     return orderList;
   }
 
-  private Promotion getFinalPromotion(List<OrderDetail> orderList) {
+  private Promotion getFinalPromotion(List<Dish> orderList) {
     Promotion fullReduce = new FullReduce(orderList);
     Promotion halfPrice = new HalfPrice(orderList);
     Promotion finalPromotion;

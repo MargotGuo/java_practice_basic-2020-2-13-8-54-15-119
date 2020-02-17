@@ -5,6 +5,7 @@ public class Dish {
   private String id;
   private String name;
   private double price;
+  private int count;
 
   public Dish(String id, String name, double price) {
     this.id = id;
@@ -20,7 +21,15 @@ public class Dish {
     return name;
   }
 
-  public double getPrice() {
-    return price;
+  public void setCount(int count) {
+    this.count = count;
+  }
+
+  public int getCount() {
+    return count;
+  }
+
+  public double getSum() {
+    return count * price;
   }
 }
