@@ -37,16 +37,7 @@ public abstract class Promotion {
   public abstract String getDiscountInfo();
 
   public String getSummary() {
-    return String.format("总计：%s元\n", formatDoubleNumber(getFinalPrice()));
-  }
-
-  // 如果double数字为整数，则转化为整数
-  // 如果double数字不为整数，则保留小数点
-  static String formatDoubleNumber(double inputNumber) {
-    if(Math.round(inputNumber) - inputNumber == 0) {
-      return String.valueOf((int)inputNumber);
-    }
-    return String.valueOf(inputNumber);
+    return String.format("总计：%s元\n", (int) getFinalPrice());
   }
 
   // getter

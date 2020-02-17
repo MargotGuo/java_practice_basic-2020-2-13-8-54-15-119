@@ -26,7 +26,7 @@ public class HalfPrice extends Promotion {
   @Override
   public String getDiscountInfo() {
     return "使用优惠:\n"
-        + String.format("指定菜品半价(黄焖鸡，凉皮)，省%s元\n", formatDoubleNumber(getDiscount()))
+        + String.format("指定菜品半价(黄焖鸡，凉皮)，省%s元\n", (int) getDiscount())
         + "-----------------------------------\n";
   }
 }
