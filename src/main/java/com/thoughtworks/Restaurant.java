@@ -14,18 +14,28 @@ public class Restaurant {
     List<Dish> orderList = getOrderList(selectedItems);
     Promotion finalPromotion = getFinalPromotion(orderList);
     System.out.println(finalPromotion.getClass().getSimpleName());
-    return Printer.printInfo(finalPromotion);
+    return Printer.printReceipt(finalPromotion);
   }
 
   private List<Dish> getOrderList(String selectedItems) {
     List<Dish> orderList = new ArrayList<>();
     String[] selectedArray = selectedItems.split(",");
     for (String itemInfo : selectedArray) {
-      Dish tempDish = DataProvider.getDishById(itemInfo.split(" x ")[0]);
+      Dish tempDish = getDishById(itemInfo.split(" x ")[0]);
       tempDish.setCount(Integer.parseInt(itemInfo.split(" x ")[1]));
       orderList.add(tempDish);
     }
     return orderList;
+  }
+
+  private static Dish getDishById(String id) {
+    Dish output = null;
+    for(Dish dish : DataProvider.getDishes()) {
+      if (dish.getId().equals(id)) {
+        output = dish;
+      }
+    }
+    return output;
   }
 
   private Promotion getFinalPromotion(List<Dish> orderList) {

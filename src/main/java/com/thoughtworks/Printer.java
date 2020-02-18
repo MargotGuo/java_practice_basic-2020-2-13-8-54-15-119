@@ -13,7 +13,7 @@ public class Printer {
   private static final String RECEIPT_FOOTER = "===================================";
 
 
-  public static String printInfo(Promotion promotion) {
+  public static String printReceipt(Promotion promotion) {
     return String.format("%s%s%s%s%s%s",
         RECEIPT_TITLE,
         getOrderInfo(promotion),
@@ -30,6 +30,13 @@ public class Printer {
     return allDishInfo.toString();
   }
 
+  private static String formatDouble(double number) {
+    if (Math.round(number) - number == 0) {
+      return String.valueOf((int) number);
+    }
+    return String.valueOf(number);
+  }
+
   private static String getDiscountInfo(Promotion promotion) {
     switch (promotion.getClass().getSimpleName()) {
       case "NoDiscount":
@@ -38,18 +45,12 @@ public class Printer {
         return PROMOTION + FULL_REDUCE_INFO + SPLIT_LINE;
       case "HalfPrice":
         return PROMOTION + HALF_PRICE_INFO_01 + formatDouble(promotion.getDiscount()) + UNIT + SPLIT_LINE;
+      default:
+        return null;
     }
-    return null;
   }
 
   private static String getSummary(Promotion promotion) {
     return SUMMARY + formatDouble(promotion.getFinalPrice()) + UNIT;
-  }
-
-  private static String formatDouble(double number) {
-    if (Math.round(number) - number == 0) {
-      return String.valueOf((int) number);
-    }
-    return String.valueOf(number);
   }
 }
